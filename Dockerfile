@@ -12,9 +12,13 @@ WORKDIR $GOPATH/src/github.com/callicoder/go-docker-compose
 # Copy everything from the current directory to the PWD(Present Working Directory) inside the container
 COPY . .
 
+RUN apk add --update git strace
+
+RUN go get -v golang.org/dl/go1.11 && go1.11 download
 # Download all the dependencies
 # https://stackoverflow.com/questions/28031603/what-do-three-dots-mean-in-go-command-line-invocations
 RUN go get -d -v ./...
+
 
 # Install the package
 RUN go install -v ./...
